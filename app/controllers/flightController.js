@@ -5,24 +5,27 @@ const postFlight = require('../services/writeRoutes');
 
 router.get('/quote/:from/:to', async (req, res) => {
     const fligthsArray = await fligths();
+    console.log('FLIGHTS', fligthsArray);
     // smallPrice - fazer função pra isso depois
-    const {from, to} = req.params;
-    let priceArray = [];
-    let sameFlight = [];
-    for (let i = 0; i < fligthsArray.length; i++) {
-        let el = fligthsArray[i]
-        if (el.from === from && el.to === to){
-            sameFlight.push(el);
-            priceArray.push(el.price);        
-        }
-        
-    }
-    let sortedPrice = priceArray.sort((a, b)=> a - b);
-    let result = sameFlight.filter(el => {
-        return el.price === sortedPrice[0];
-    });
     
-    res.status(200).send({ success: true, result });
+    const {from, to} = req.params;
+    // let priceArray = [];
+    // let sameFlight = [];
+    // for (let i = 0; i < fligthsArray.length; i++) {
+    //     let el = fligthsArray[i]
+    //     if (el.from === from && el.to === to){
+    //         sameFlight.push(el);
+    //         priceArray.push(el.price);
+
+    //     }
+        
+    // }
+    // let sortedPrice = priceArray.sort((a, b)=> a - b);
+    // let result = sameFlight.filter(el => {
+    //     return el.price === sortedPrice[0];
+    // });
+    
+    res.status(200).send({ success: true});
 });
 
 

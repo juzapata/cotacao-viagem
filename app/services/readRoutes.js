@@ -4,10 +4,22 @@ module.exports = () => {
   const readCsv = fs.readFileSync('routes.csv', 'utf8');
   const routesToJson = readCsv.split(/\n|\r\n/).map((data) => {
     let values = data.split(',');
-    return obj = {
-      from: values[0],
-      to: values[1],
-      price: parseFloat(values[2])
+    let [from, ...last] = values;
+    if (values.length > 3) {
+      let price = last.pop();
+      let to = last.pop();
+      let joined = last.join();
+      return {
+        from: from,
+        conexion: joined,
+        to: to,
+        price: parseFloat(price)
+      }
+    }
+    return {
+      from: from,
+      to: last[0],
+      price: parseFloat(last[1])
     }
   });
   return routesToJson;
