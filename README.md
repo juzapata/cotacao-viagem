@@ -17,6 +17,11 @@ $ npm start
 ```
 - Aplicação irá roda na porta no localhost:3000
 
+- Para testar
+```sh
+$ npm run test
+```
+
 ### Endpoints
 
 #### Leitura da rota ou das rotas mais baratas
