@@ -21,6 +21,7 @@ $ npm start
 - Leitura da rota ou das rotas mais baratas
 - metodo: GET
 - localhost:3000/quote/{from}/{to}
+- exemplo de endpoint: localhost:3000/quote/GRU/BRC
 - Exemplo de Retorno: {
     "success": true,
     "result": {
@@ -37,7 +38,7 @@ $ npm start
 	 "to": "SCL",
 	 "price": 40
  }
- Exemplo de Retorno: {
+ - Exemplo de Retorno: {
   "success": true,
   "routes": {
     "from": "GRU",
