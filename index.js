@@ -11,3 +11,4 @@ require('./app/controllers/flightController')(app);
 app.listen(3000, ()=>{console.log('Servidor rodando...')})
 
 
+module.exports.app = app;
