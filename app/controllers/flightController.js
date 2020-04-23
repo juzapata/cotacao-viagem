@@ -19,7 +19,7 @@ router.get('/quote/:from/:to', async (req, res) => {
         }
         return res.status(200).send({ success: true, result });
     } catch (err) {
-        res.status(400).send({ success: false, err });
+        res.status(400).send( {success: false, err: err.message} );
     }
 
 });
@@ -37,8 +37,8 @@ router.post('/route', async (req, res) => {
             res.status(200).send({ success: true, routes: result });
         }
     } catch (err) {
-        console.log('ERR', err);
-        res.status(400).send({ success: false, err });
+        console.log('ERREEEEEEROOOOOO', err);
+        res.status(400).send( {success: false, err: err.message} );
     }
 
 });
