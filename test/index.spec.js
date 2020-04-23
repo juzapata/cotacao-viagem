@@ -9,7 +9,7 @@ chai.use(subset);
 
 describe('Teste de Requisição', () => {
 
-    it('Colocano rotas novas retorno: success: true', (done) => {
+    it('Adição de rotas novas, retorno: success: true', (done) => {
         chai.request(index.app).post('/route').send({
             "from": "GRU",
             "to": "SCL",
@@ -34,18 +34,7 @@ describe('Teste de Requisição', () => {
             })
     });
 
-    it('Adicionando rotas novas retorno: success: false', (done) => {
-        chai.request(index.app).post('/route').send({
-            "from": "GRU",
-            "to": "SCL"
-        }).end((err, res) => {
-            chai.expect(res).to.have.status(400);
-            chai.expect(res.body.success).to.be.eql(false);
-            done();
-        })
-    })
-
-    it('Colocano rotas novas com conexão, retorno: success: true', (done) => {
+    it('Adição de rotas novas com conexão, retorno: success: true', (done) => {
         chai.request(index.app).post('/route').send({
             "from": "GRU",
             "to": "SCL",
@@ -75,6 +64,50 @@ describe('Teste de Requisição', () => {
             });
     });
 
+    it('Adição de rota sem o price: success: false', (done) => {
+        chai.request(index.app).post('/route').send({
+            "from": "GRU",
+            "to": "SCL"
+        }).end((err, res) => {
+            chai.expect(res).to.have.status(400);
+            chai.expect(res.body.success).to.be.eql(false);
+            done();
+        })
+    })
+
+    it('Adição de rota sem o from: success: false', (done) => {
+        chai.request(index.app).post('/route').send({
+            "to": "SCL",
+            "price": 40
+        }).end((err, res) => {
+            chai.expect(res).to.have.status(400);
+            chai.expect(res.body.success).to.be.eql(false);
+            done();
+        })
+    })
+
+    it('Adição de rota sem o to: success: false', (done) => {
+        chai.request(index.app).post('/route').send({
+            "from": "SCL",
+            "price": 40
+        }).end((err, res) => {
+            chai.expect(res).to.have.status(400);
+            chai.expect(res.body.success).to.be.eql(false);
+            done();
+        })
+    })
+
+    it('Adição de rotas novas sem o body, retorno: success: false', (done) => {
+        chai.request(index.app).post('/route')
+        .end((err, res) => {
+            chai.expect(res).to.have.status(400);
+            chai.expect(res.body.success).to.be.eql(false);
+                done();
+            });
+    });
+
+
+    // teste do GET
     it('Leitura dos voos', (done) => {
         chai.request(index.app).get('/quote/GRU/BRC')
             .end((err, res) => {
@@ -97,7 +130,6 @@ describe('Teste de Requisição', () => {
     it('Leitura dos voos, retorno: erro', (done)=>{
         chai.request(index.app).get('/quote/GRU/').end((err, res)=>{
             chai.expect(err).to.be.null;
-            chai.expect(res).to.have.status(404);
             done();
         })
     })
