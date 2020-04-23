@@ -19,11 +19,12 @@ $ npm start
 
 ### Endpoints
 
-- Leitura da rota ou das rotas mais baratas
--Metodo: GET
--localhost:3000/quote/{from}/{to}
--exemplo de endpoint: localhost:3000/quote/GRU/BRC
--Exemplo de Retorno: {
+## Leitura da rota ou das rotas mais baratas
+
+- Metodo: GET
+- localhost:3000/quote/{from}/{to}
+- exemplo de endpoint: localhost:3000/quote/GRU/BRC
+- Exemplo de Retorno: {
     "success": true,
     "result": {
     "route": "GRU,BRC",
@@ -31,15 +32,16 @@ $ npm start
     }
 }
 
-- Inclusão de rota
--metodo: POST
--localhost:3000/route
--Exemplo de Body: {
+## Inclusão de rota
+
+- metodo: POST
+- localhost:3000/route
+- Exemplo de Body: {
 	 "from": "GRU",
 	 "to": "SCL",
 	 "price": 40
  }
- -Exemplo de Retorno: {
+ - Exemplo de Retorno: {
   "success": true,
   "routes": {
     "from": "GRU",
