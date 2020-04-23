@@ -19,7 +19,7 @@ $ npm start
 
 ### Endpoints
 
-## Leitura da rota ou das rotas mais baratas
+#### Leitura da rota ou das rotas mais baratas
 
 - Metodo: GET
 - localhost:3000/quote/{from}/{to}
@@ -32,7 +32,7 @@ $ npm start
     }
 }
 
-## Inclusão de rota
+#### Inclusão de rota
 
 - metodo: POST
 - localhost:3000/route
