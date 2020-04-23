@@ -1,50 +1,44 @@
+// modules
 const express = require('express');
 const router = express.Router();
+
+//services
 const fligths = require('../services/readRoutes');
-const postFlight = require('../services/writeRoutes');
+require('../services/writeRoutes');
+const getSmalletFlight = require('../services/getSmallestFligth');
 
+
+// leitura de rotas e retorno da ou das rotas mais baratas
 router.get('/quote/:from/:to', async (req, res) => {
-    const fligthsArray = await fligths();
-    console.log('FLIGHTS', fligthsArray);
-    // smallPrice - fazer função pra isso depois
-    
-    const {from, to} = req.params;
-    // let priceArray = [];
-    // let sameFlight = [];
-    // for (let i = 0; i < fligthsArray.length; i++) {
-    //     let el = fligthsArray[i]
-    //     if (el.from === from && el.to === to){
-    //         sameFlight.push(el);
-    //         priceArray.push(el.price);
+    try {
+        const fligthsArray = await fligths();
+        const { from, to } = req.params;
+        let result = getSmalletFlight(fligthsArray, from, to);
+        if (result.length === 0) {
+            return res.status(200).send({ success: true, result: 'Voo não encontrado' });
+        }
+        return res.status(200).send({ success: true, result });
+    } catch (err) {
+        res.status(400).send({ success: false, err });
+    }
 
-    //     }
-        
-    // }
-    // let sortedPrice = priceArray.sort((a, b)=> a - b);
-    // let result = sameFlight.filter(el => {
-    //     return el.price === sortedPrice[0];
-    // });
-    
-    res.status(200).send({ success: true});
 });
 
-
+// post de uma rota por vez
 router.post('/route', async (req, res) => {
     try {
-        const { from, to, price } = req.body;
-        if (
-            typeof (from) !== 'string' ||
-            typeof (to) !== 'string' ||
-            (typeof (from) !== 'string' && typeof (to) !== 'string') ||
-            typeof (price) !== 'number'
-        ) {
-            return res.status(400).send({ success: false, error: 'body mal formatado' });
+        if (!req.body.connection){
+            const { from, to, price } = req.body;
+            let result = await writeNormalRoute(from, to, price.toString());
+            res.status(200).send({ success: true, routes: result });
+        } else {
+            const { from, to, connection, price } = req.body;
+            let result = await writeConnectionRoute(from, to, connection, price.toString());
+            res.status(200).send({ success: true, routes: result });
         }
-        await postFlight(from, to, price.toString());
-        res.status(200).send({ success: true, route: req.body });
     } catch (err) {
         console.log('ERR', err);
-        res.status(400).send(err);
+        res.status(400).send({ success: false, err });
     }
 
 });

@@ -1,7 +1,8 @@
 const fs = require('fs');
 
 module.exports = () => {
-  const readCsv = fs.readFileSync('routes.csv', 'utf8');
+  try {
+    const readCsv = fs.readFileSync('routes.csv', 'utf8');
   const routesToJson = readCsv.split(/\n|\r\n/).map((data) => {
     let values = data.split(',');
     let [from, ...last] = values;
@@ -23,4 +24,8 @@ module.exports = () => {
     }
   });
   return routesToJson;
+  }catch (err){
+    console.log(err);
+  }
+  
 }
