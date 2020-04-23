@@ -73,7 +73,7 @@ describe('Teste de Requisição', () => {
             chai.expect(res.body.success).to.be.eql(false);
             done();
         })
-    })
+    });
 
     it('Adição de rota sem o from: success: false', (done) => {
         chai.request(index.app).post('/route').send({
@@ -84,7 +84,7 @@ describe('Teste de Requisição', () => {
             chai.expect(res.body.success).to.be.eql(false);
             done();
         })
-    })
+    });
 
     it('Adição de rota sem o to: success: false', (done) => {
         chai.request(index.app).post('/route').send({
@@ -99,15 +99,13 @@ describe('Teste de Requisição', () => {
 
     it('Adição de rotas novas sem o body, retorno: success: false', (done) => {
         chai.request(index.app).post('/route')
-        .end((err, res) => {
-            chai.expect(res).to.have.status(400);
-            chai.expect(res.body.success).to.be.eql(false);
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+                chai.expect(res.body.success).to.be.eql(false);
                 done();
             });
     });
 
-
-    // teste do GET
     it('Leitura dos voos', (done) => {
         chai.request(index.app).get('/quote/GRU/BRC')
             .end((err, res) => {
@@ -117,21 +115,21 @@ describe('Teste de Requisição', () => {
                 chai.expect(res.body).to.be.eql({
                     "success": true,
                     "result": {
-                      "route": "GRU,BRC",
-                      "price": 10
+                        "route": "GRU,BRC",
+                        "price": 10
                     }
-                  })
+                })
                 chai.expect(res.body.result.route).to.be.a('string');
                 chai.expect(res.body.result.price).to.be.a('number');
                 done();
             })
     });
 
-    it('Leitura dos voos, retorno: erro', (done)=>{
-        chai.request(index.app).get('/quote/GRU/').end((err, res)=>{
+    it('Leitura dos voos, retorno: erro', (done) => {
+        chai.request(index.app).get('/quote/GRU/').end((err, res) => {
             chai.expect(err).to.be.null;
             done();
         })
-    })
+    });
 
 })

@@ -19,7 +19,7 @@ router.get('/quote/:from/:to', async (req, res) => {
         }
         return res.status(200).send({ success: true, result });
     } catch (err) {
-        res.status(400).send( {success: false, err: err.message} );
+        res.status(400).send({ success: false, err: err.message });
     }
 
 });
@@ -27,17 +27,17 @@ router.get('/quote/:from/:to', async (req, res) => {
 // post de uma rota por vez
 router.post('/route', async (req, res) => {
     try {
-        if (!req.body.from){
-           return res.status(400).send( {success: false, err: 'campo from está faltando'} );
+        if (!req.body.from) {
+            return res.status(400).send({ success: false, err: 'campo from está faltando' });
         }
-        if (!req.body.to){
-            return res.status(400).send( {success: false, err: 'campo to está faltando'} );
+        if (!req.body.to) {
+            return res.status(400).send({ success: false, err: 'campo to está faltando' });
         }
-        if (!req.body.price){
-            return res.status(400).send( {success: false, err: 'campo price está faltando'} );
+        if (!req.body.price) {
+            return res.status(400).send({ success: false, err: 'campo price está faltando' });
         }
-        
-        if (!req.body.connection){
+
+        if (!req.body.connection) {
             const { from, to, price } = req.body;
             let result = await writeNormalRoute(from, to, price.toString());
             res.status(200).send({ success: true, routes: result });
@@ -48,7 +48,7 @@ router.post('/route', async (req, res) => {
         }
     } catch (err) {
         console.log('ERREEEEEEROOOOOO', err);
-        return res.status(400).send( {success: false, err: err.message} );
+        return res.status(400).send({ success: false, err: err.message });
     }
 
 });
